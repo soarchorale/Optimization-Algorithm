@@ -1,0 +1,20 @@
+;****************************************
+;Log File Started 16:04:31 Tue May 27 2008
+;Using FLAC3D version 3.00-261
+;By: Itasca Consulting Group, Inc.
+;    Minneapolis, MN  USA
+;Job:
+Flac3D>set logfile flac3d.log
+;Log File Ended 16:04:37 Tue May 27 2008
+;****************************************
+    Appended to previous file           
+;****************************************
+;Log File Started 16:04:40 Tue May 27 2008
+;Using FLAC3D version 3.00-261
+;By: Itasca Consulting Group, Inc.
+;    Minneapolis, MN  USA
+;Job:
+Flac3D>plot create 1
+Flac3D>print range cylinder end1=(0.000000e+000,0.000000e+000,0.000000e+000) end2=(0.000000e+000,0.000000e+000,0.000000e+000) radius=0.000000e+000  
+;Log File Ended 16:16:11 Tue May 27 2008
+;****************************************

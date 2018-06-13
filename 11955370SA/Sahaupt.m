@@ -1,0 +1,97 @@
+function [Xopt Xcurrent] = Sahaupt( initialtemperature ,coolingrate,...
+    maxiterations,initialsolution,mintemperature)
+%SAHAUPT Summary of this function goes here
+%   Detailed explanation goes here
+
+T=initialtemperature;
+Tmin=mintemperature;
+N=1;
+Nk=maxiterations;
+a=coolingrate;
+X0=initialsolution;
+X0=rot90(X0);
+m=size(X0);
+Xcurrent=X0;
+currentFktopt = objfkt(Xcurrent);
+
+%----------------------------------------------------------------------%
+mainHandles = guidata(simulatedannealing);
+
+while T > Tmin  
+   %update.parameter=Xcurrent+0.2.*(rand(1,2)- 0.5);
+   %update.temperature=a*T;
+   
+   for k=1:Nk       
+       Fc = objfkt(Xcurrent);
+       randdiff = 0.1.*(rand(m)- 0.5);  %update parameter;
+       Xneu = Xcurrent+randdiff; 
+       Fneu = objfkt(Xneu);
+       EnergieDiff = Fneu-Fc;
+       
+       if EnergieDiff < 0
+           %T = a*T;                          %update.temperature;
+            Xcurrent = Xneu;
+            
+            %best Fktwert Aufnahme---------------->zur Verbesserung         
+            Xbest = Xcurrent;
+            Fbest = Fneu;
+            
+            %N = N+1;
+       
+       elseif exp(-EnergieDiff/T) > rand
+            %pi=exp(-EnergieDiff/T);
+            %T = a*T;                             %update.temperature;
+            Xcurrent = Xneu;
+            %Fktwert = Fneu;
+            %N = N+1;
+       
+       end
+       %Xcurrent = Xcurrent;
+       Fkt(N)=objfkt(Xcurrent);
+       
+      % if currentFktopt >= Fkt(N)
+      %     currentFktopt=Fkt(N);
+      %     Xopt=Xcurrent;
+      % end
+      % Fktopt(N)=currentFktopt;
+      % N=N+1;
+       
+   end
+   N = N + 1;
+   T = a*T;
+   Fktcurrent=objfkt(Xcurrent);
+   times = 1 : N-1;
+   temp = plot(times, Fkt);
+   set(temp,'color','b');
+   %Str = num2str(Xcurrent);
+   titledisp=sprintf('best Function value : %f',Fktcurrent );
+   title(titledisp,'fontweight','bold');
+   % xlabel=('iterations');
+   % ylabel=('function value');
+   Pm = get(mainHandles.Parameterzahl, 'Value');
+   %mainHandles = guidata(simulatedannealing);  
+   set(mainHandles.best_result, 'Data',rot90(Xcurrent))
+   strtemp = sprintf('Temperatur : %.3f',T);
+   set(mainHandles.disptemperatur, 'String',strtemp)
+   strtemp = sprintf('Iterations : %.0f',N);
+   set(mainHandles.dispiterations, 'String',strtemp)
+   %set(handles.editChangeMe, 'String', ?
+   %get(mainHandles.buttonChangeMe, 'String'));
+   %setappdata(simulatedannealing,'best_solution',Xcurrent)
+   
+   drawnow;
+   
+   %s = sprintf('X1 : %0.3f X2 : %0.3f',Xcurrent);
+   %set(handles.best_solution, 'String', s);
+   
+   
+    
+end
+   Xopt=Xcurrent;
+   
+   
+   
+end
+
+
+      
