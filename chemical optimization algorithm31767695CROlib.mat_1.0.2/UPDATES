@@ -1,5 +1,0 @@
-﻿Version 1.0.2
-* Fix a bug which makes CROStatistic object store bad molecules.
-
-Version 1.0.1
-* Fix a bug which generates identical molecules when cloning the sample molecule.
